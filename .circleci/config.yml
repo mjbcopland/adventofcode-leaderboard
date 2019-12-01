@@ -1,0 +1,58 @@
+version: 2
+
+jobs:
+  lint:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run: npm ci --unsafe-perm
+      - run: npm run lint
+  test:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run: npm ci --unsafe-perm
+      - run: npm run test
+  build:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run: npm ci --unsafe-perm
+      - run: npm run build
+  verify:
+    docker:
+      - image: node:12
+    steps:
+      - checkout
+      - run: npm ci --unsafe-perm
+      - run: npm run verify
+  deploy:
+    docker:
+      - image: mesosphere/aws-cli
+    steps:
+      - checkout
+      - run: echo deploy
+
+workflows:
+  version: 2
+  default:
+    jobs:
+      - lint
+      - test
+      - build:
+          requires:
+            - lint
+            - test
+      - verify:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - verify
+          filters:
+            branches:
+              only:
+                - master
