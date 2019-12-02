@@ -6,7 +6,10 @@
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "verify": "echo \"Error: no test specified\" && exit 1",
+    "profile": "npm -s run build -- --profile --json > stats.json",
+    "analyse": "npx webpack-bundle-analyzer stats.json"
   },
   "repository": {
     "type": "git",
@@ -14,20 +17,26 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mjbcopland/adventofcode-leaderboard/issues"
   },
   "homepage": "https://github.com/mjbcopland/adventofcode-leaderboard#readme",
   "dependencies": {
-    "core-js": "^3.4.5"
+    "axios": "^0.19.0",
+    "cookie": "^0.4.0",
+    "core-js": "^3.4.5",
+    "lodash-es": "^4.17.15"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
     "@babel/register": "^7.7.4",
+    "@types/assert": "^1.4.3",
     "@types/aws-lambda": "^8.10.36",
+    "@types/cookie": "^0.3.3",
+    "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.14",
     "@types/terser-webpack-plugin": "^2.2.0",
     "@types/webpack": "^4.41.0",
@@ -35,10 +44,12 @@
     "@typescript-eslint/parser": "^2.9.0",
     "babel-loader": "^8.0.6",
     "babel-node": "0.0.1-security",
+    "babel-plugin-lodash": "^3.3.4",
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
     "prettier": "^1.19.1",
     "rollup": "^1.27.6",
     "rollup-plugin-babel": "^4.3.3",
@@ -47,6 +58,7 @@
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10"
   }
 }

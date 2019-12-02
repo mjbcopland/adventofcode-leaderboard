@@ -22,19 +22,19 @@ jobs:
       - checkout
       - run: npm ci --unsafe-perm
       - run: npm run build
-  verify:
-    docker:
-      - image: node:12
-    steps:
-      - checkout
-      - run: npm ci --unsafe-perm
       - run: npm run verify
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - dist/
   deploy:
     docker:
       - image: mesosphere/aws-cli
     steps:
-      - checkout
-      - run: echo deploy
+      - attach_workspace:
+          at: ./
+      - run: tar -zcvf lambda.tar.gz dist/
+      - run: aws cloudformation deploy
 
 workflows:
   version: 2
@@ -42,16 +42,12 @@ workflows:
     jobs:
       - lint
       - test
-      - build:
+      - build
+      - deploy:
           requires:
             - lint
             - test
-      - verify:
-          requires:
             - build
-      - deploy:
-          requires:
-            - verify
           filters:
             branches:
               only:

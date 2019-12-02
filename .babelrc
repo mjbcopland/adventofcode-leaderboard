@@ -1,9 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      { "targets": { "node": true }, "useBuiltIns": "usage", "corejs": 3 }
-    ],
-    "@babel/preset-typescript"
-  ]
+  "presets": [["@babel/preset-env", { "targets": { "node": true } }], "@babel/preset-typescript"],
+  "plugins": ["lodash"]
 }

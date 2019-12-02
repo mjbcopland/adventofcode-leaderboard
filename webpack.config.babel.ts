@@ -16,7 +16,10 @@ const config: webpack.Configuration = {
   mode: getMode(process.env.NODE_ENV),
   target: 'node',
   output: { libraryTarget: 'commonjs2' },
-  resolve: { extensions: ['.ts', '.js', '.json'] },
+  resolve: {
+    alias: { lodash: 'lodash-es' },
+    extensions: ['.ts', '.js', '.json'],
+  },
   module: {
     rules: [{ test: /\.ts$/, use: ['babel-loader', 'ts-loader'] }],
   },
